@@ -1,14 +1,20 @@
 import AboutScreen from "./AboutScreen"
-import logo from '../assets/images/logo.png'
 import CampsiteInfoScreen from "./CampsiteInfoScreen"
+import Constants from "expo-constants"
 import ContactScreen from "./ContactScreen"
 import DirectoryScreen from "./DirectoryScreen"
-import Constants from "expo-constants"
 import HomeScreen from "./HomeScreen"
+import logo from '../assets/images/logo.png'
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer"
 import { createStackNavigator } from "@react-navigation/stack"
 import { Image, Platform, StyleSheet, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements'
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { fetchCampsites } from "../features/campsites/campsitesSlice"
+import { fetchComments } from "../features/comments/commentsSlice"
+import { fetchPartners } from "../features/partners/partnersSlice"
+import { fetchPromotions } from "../features/promotions/promotionsSlice"
 
 const Drawer = createDrawerNavigator()
 const screenOptions = { headerStyle:{backgroundColor:'#5637DD'} , headerTintColor:'#fff' }
@@ -116,6 +122,15 @@ const CustomDrawerContent = (props) => {
 }
 
 const Main = () => {
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(fetchCampsites())
+        dispatch(fetchComments())
+        dispatch(fetchPartners())
+        dispatch(fetchPromotions())
+    }, [dispatch])
+
     return (
         <View style={{ flex: 1 , paddingTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight }}>
             <Drawer.Navigator initialRouteName='Home' drawerStyle={{ backgroundColor:'#CEC8FF' }} drawerContent={CustomDrawerContent} >
