@@ -1,5 +1,6 @@
 import Loading from '../components/LoadingComponent'
 import { ScrollView } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import { Avatar, Card, ListItem, Text } from 'react-native-elements'
 import { useSelector } from 'react-redux'
 import { baseUrl } from '../shared/baseUrl'
@@ -40,34 +41,46 @@ const AboutScreen = () => {
     if (partners.errMess) {
         return (
             <ScrollView>
-                <Mission />
-                <Card>
-                    <Card.Title>Community Partners</Card.Title>
-                    <Card.Divider />
-                    <Text>{partners.errMess}</Text>
-                </Card>
+                <Animatable.View
+                    animation = 'fadeInDown'
+                    duration = {2000}
+                    delay = {1000}
+                >
+                    <Mission />
+                    <Card>
+                        <Card.Title>Community Partners</Card.Title>
+                        <Card.Divider />
+                        <Text>{partners.errMess}</Text>
+                    </Card>
+                </Animatable.View>
             </ScrollView>
         )
     }
 
     return (
         <ScrollView>
-            <Mission />
-            <Card>
-                <Card.Title>Community Partners</Card.Title>
-                <Card.Divider />
-                {partners.partnersArray.map(partner=>{
-                    return(
-                        <ListItem key={partner.id}>
-                            <Avatar rounded source={{ uri: baseUrl + partner.image }} />
-                            <ListItem.Content>
-                                <ListItem.Title>{partner.name}</ListItem.Title>
-                                <ListItem.Subtitle>{partner.description}</ListItem.Subtitle>
-                            </ListItem.Content>
-                        </ListItem>
-                    )
-                })}
-            </Card>
+            <Animatable.View
+                animation = 'fadeInDown'
+                duration = {2000}
+                delay = {1000}
+            >
+                <Mission />
+                <Card>
+                    <Card.Title>Community Partners</Card.Title>
+                    <Card.Divider />
+                    {partners.partnersArray.map(partner=>{
+                        return(
+                            <ListItem key={partner.id}>
+                                <Avatar rounded source={{ uri: baseUrl + partner.image }} />
+                                <ListItem.Content>
+                                    <ListItem.Title>{partner.name}</ListItem.Title>
+                                    <ListItem.Subtitle>{partner.description}</ListItem.Subtitle>
+                                </ListItem.Content>
+                            </ListItem>
+                        )
+                    })}
+                </Card>
+            </Animatable.View>
         </ScrollView>
     )
 }
