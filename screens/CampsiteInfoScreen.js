@@ -72,7 +72,7 @@ const CampsiteInfoScreen = ({ route }) => {
                             campsite = {campsite}
                             isFavorite = {favorites.includes(campsite.id)}
                             markFavorite = {()=>dispatch(toggleFavorite(campsite.id))}
-                            onShowModal = {() => setShowModal(!showModal)}
+                            onShowModal = {() => setShowModal(!showModal)} //RenderCampsite has a property called "onShowModal" that will be equal to the state of showModal
                         />
                         <Text style={styles.commentsTitle}>Comments</Text>
                     </>

@@ -9,6 +9,7 @@ const RenderCampsite = (props) => {
     
     const view = useRef();
     const isLeftSwipe = ({ dx }) => dx < -200;
+    const isRightSwipe = ({ dx }) => dx > 200; 
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -38,8 +39,9 @@ const RenderCampsite = (props) => {
                     ],
                     { cancelable: false }
                 )
-            }
-        },
+            // Even tho the comment modal is set in CampsiteInfoScreen, that is a parent of RenderCampsite.
+            } else if (isRightSwipe(gestureState)) props.onShowModal();
+        }
     })
 
     if (campsite) {
