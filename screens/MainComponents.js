@@ -5,6 +5,7 @@ import ContactScreen from "./ContactScreen"
 import DirectoryScreen from "./DirectoryScreen"
 import FavoritesScreen from "./FavoritesScreen"
 import HomeScreen from "./HomeScreen"
+import LoginScreen from "./LoginScreen"
 import logo from '../assets/images/logo.png'
 import ReservationScreen from "./ReservationScreen"
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer"
@@ -84,6 +85,27 @@ const DirectoryNavigator = () => {
     )
 }
 
+const FavoritesNavigator = () => {
+    const Stack = createStackNavigator()
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name='Favorites' component={FavoritesScreen}
+                options={({ navigation })=>({
+                    title: 'Favorite Campsites',
+                    headerLeft: () => (
+                        <Icon
+                            name='heart'
+                            type='font-awesome'
+                            iconStyle={ styles.stackIcon }
+                            onPress={ ()=> navigation.toggleDrawer() }
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    )
+}
+
 const HomeNavigator = () => {
     const Stack = createStackNavigator()
     return (
@@ -93,6 +115,26 @@ const HomeNavigator = () => {
                     headerLeft: () => (
                         <Icon
                             name='home'
+                            type='font-awesome'
+                            iconStyle={ styles.stackIcon }
+                            onPress={ ()=> navigation.toggleDrawer() }
+                        />
+                    )
+                })}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const LoginNavigator = () => {
+    const Stack = createStackNavigator()
+    return (
+        <Stack.Navigator screenOptions={screenOptions}>
+            <Stack.Screen name='Login' component={LoginScreen}
+                options={({ navigation })=>({
+                    headerLeft: () => (
+                        <Icon
+                            name='sign-in'
                             type='font-awesome'
                             iconStyle={ styles.stackIcon }
                             onPress={ ()=> navigation.toggleDrawer() }
@@ -114,27 +156,6 @@ const ReservationNavigator = () => {
                     headerLeft: () => (
                         <Icon
                             name='tree'
-                            type='font-awesome'
-                            iconStyle={ styles.stackIcon }
-                            onPress={ ()=> navigation.toggleDrawer() }
-                        />
-                    )
-                })}
-            />
-        </Stack.Navigator>
-    )
-}
-
-const FavoritesNavigator = () => {
-    const Stack = createStackNavigator()
-    return (
-        <Stack.Navigator screenOptions={screenOptions}>
-            <Stack.Screen name='Favorites' component={FavoritesScreen}
-                options={({ navigation })=>({
-                    title: 'Favorite Campsites',
-                    headerLeft: () => (
-                        <Icon
-                            name='heart'
                             type='font-awesome'
                             iconStyle={ styles.stackIcon }
                             onPress={ ()=> navigation.toggleDrawer() }
@@ -254,6 +275,20 @@ const Main = () => {
                         drawerIcon: ({ color }) => (
                             <Icon
                                 name='address-card'
+                                type='font-awesome'
+                                size={24}
+                                iconStyle={{ width: 28 }}
+                                color={color}
+                            />
+                        )
+                    }}
+                />
+                <Drawer.Screen name='Login' component={LoginNavigator}
+                    options={{
+                        title: 'User Login',
+                        drawerIcon: ({ color }) => (
+                            <Icon
+                                name='sign-in'
                                 type='font-awesome'
                                 size={24}
                                 iconStyle={{ width: 28 }}
