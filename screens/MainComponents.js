@@ -18,6 +18,7 @@ import { fetchCampsites } from "../features/campsites/campsitesSlice"
 import { fetchComments } from "../features/comments/commentsSlice"
 import { fetchPartners } from "../features/partners/partnersSlice"
 import { fetchPromotions } from "../features/promotions/promotionsSlice"
+import { getFocusedRouteNameFromRoute } from "@react-navigation/core"
 
 const Drawer = createDrawerNavigator()
 const screenOptions = { headerStyle:{backgroundColor:'#5637DD'} , headerTintColor:'#fff' }
@@ -131,15 +132,16 @@ const LoginNavigator = () => {
     return (
         <Stack.Navigator screenOptions={screenOptions}>
             <Stack.Screen name='Login' component={LoginScreen}
-                options={({ navigation })=>({
+                options={({ navigation, route })=>({
                     headerLeft: () => (
                         <Icon
-                            name='sign-in'
-                            type='font-awesome'
-                            iconStyle={ styles.stackIcon }
-                            onPress={ ()=> navigation.toggleDrawer() }
+                            name = {getFocusedRouteNameFromRoute(route) === 'Register' ? 'user-plus' : 'sign-in'}
+                            type = 'font-awesome'
+                            iconStyle = { styles.stackIcon }
+                            onPress = { ()=> navigation.toggleDrawer() }
                         />
-                    )
+                    ),
+                    headerTitle: getFocusedRouteNameFromRoute(route)
                 })}
             />
         </Stack.Navigator>
